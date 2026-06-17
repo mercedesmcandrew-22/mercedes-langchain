@@ -1,0 +1,588 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mercedes McAndrew — Product Marketing Manager · LangChain</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* =========================================================
+     LANGCHAIN PALETTE  (blue + official heron-blue from logo)
+     ========================================================= */
+  :root{
+    --paper:   #FFFFFF;
+    --paper-2: #F3F8FD;   /* panels */
+    --paper-3: #E9F2FC;   /* chips / hover */
+    --ink:     #0A1A2F;   /* deep navy text */
+    --ink-soft:#54657A;
+    --blue:    #1167D6;   /* LangChain primary blue */
+    --blue-700:#0B4FA8;
+    --blue-200:#7FC8FF;   /* official LangChain logo blue */
+    --line:    #DCE6F2;
+    --code-bg: #0B1B2E;   /* terminal / code navy */
+    --code-fg: #CFE3FA;
+    --ok:      #34C49A;
+
+    --font-display:'Space Grotesk', system-ui, sans-serif;
+    --font-body:'Inter', system-ui, sans-serif;
+    --font-mono:'JetBrains Mono', ui-monospace, monospace;
+    --maxw:1000px;
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--font-body); line-height:1.55; -webkit-font-smoothing:antialiased;
+  }
+  a{ color:inherit; }
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 24px; }
+
+  /* ---------- top brand + status bar ---------- */
+  .topbar{
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    padding:22px 0 0; flex-wrap:wrap;
+  }
+  .brand{ display:flex; align-items:center; gap:10px; }
+  .brand .mark{ width:26px; height:26px; color:var(--blue); flex:none; }
+  .brand .name{ font-family:var(--font-display); font-weight:600; font-size:17px; letter-spacing:-.01em; }
+  .brand .sub{ font-family:var(--font-mono); font-size:11px; color:var(--ink-soft); margin-left:2px; }
+  .status{
+    font-family:var(--font-mono); font-size:12px; color:var(--ink-soft);
+    border:1px solid var(--line); background:var(--paper-2);
+    border-radius:999px; padding:7px 14px; display:inline-flex; align-items:center; gap:9px;
+  }
+  .status b{ color:var(--ink); font-weight:600; }
+  .status .live{ width:8px; height:8px; border-radius:50%; background:var(--ok); box-shadow:0 0 0 4px rgba(52,196,154,.18); }
+
+  /* ---------- hero ---------- */
+  header.hero{ padding:48px 0 26px; }
+  .eyebrow{
+    font-family:var(--font-mono); font-size:12px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--blue); margin:0 0 14px;
+  }
+  h1{
+    font-family:var(--font-display); font-weight:700; letter-spacing:-.025em;
+    font-size:clamp(40px,7vw,72px); line-height:.98; margin:0 0 12px;
+  }
+  .tagline{
+    font-family:var(--font-display); font-weight:500; color:var(--ink-soft);
+    font-size:clamp(16px,2.4vw,21px); margin:0 0 22px; max-width:48ch;
+  }
+  .lede{ max-width:64ch; font-size:16.5px; color:#34465a; margin:0 0 24px; }
+  .lede b{ color:var(--ink); font-weight:600; }
+
+  .pills{ display:flex; flex-wrap:wrap; gap:9px; margin:0 0 26px; }
+  .pill{
+    font-family:var(--font-mono); font-size:12px; color:var(--blue-700);
+    background:var(--paper-3); border:1px solid #cfe2f8;
+    padding:6px 11px; border-radius:8px;
+  }
+  .jumps{ display:flex; flex-wrap:wrap; gap:18px; }
+  .jumps a{
+    font-family:var(--font-mono); font-size:13px; text-decoration:none; color:var(--ink);
+    border-bottom:2px solid var(--blue-200); padding-bottom:2px;
+  }
+  .jumps a:hover{ color:var(--blue); }
+
+  /* ---------- code block (infra-as-code flex) ---------- */
+  .codecard{
+    margin:34px 0 0; border-radius:14px; overflow:hidden;
+    border:1px solid #13314e; background:var(--code-bg);
+    box-shadow:0 18px 40px -24px rgba(11,79,168,.55);
+  }
+  .codecard .bar{
+    display:flex; align-items:center; gap:8px; padding:11px 15px;
+    border-bottom:1px solid #15324c; background:#0a1626;
+  }
+  .codecard .bar i{ width:11px; height:11px; border-radius:50%; background:#23405e; display:block; }
+  .codecard .bar i.r{ background:#ff5f56; } .codecard .bar i.y{ background:#ffbd2e; } .codecard .bar i.g{ background:#27c93f; }
+  .codecard .bar .fn{ margin-left:8px; font-family:var(--font-mono); font-size:12px; color:#7d93ad; }
+  pre{ margin:0; padding:18px 18px 20px; overflow-x:auto; }
+  code{
+    font-family:var(--font-mono); font-size:13px; line-height:1.7; color:var(--code-fg);
+    white-space:pre;
+  }
+  .c-com{ color:#5d7793; } .c-kw{ color:#7FC8FF; } .c-fn{ color:#9ed0ff; } .c-str{ color:#86e0c0; } .c-cmd{ color:#ffd479; }
+
+  /* ---------- section scaffold ---------- */
+  section{ padding:62px 0 0; }
+  .sec-head{ margin:0 0 22px; }
+  .sec-kicker{
+    font-family:var(--font-mono); font-size:12px; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--ink-soft); margin:0 0 8px;
+  }
+  .sec-title{ font-family:var(--font-display); font-weight:700; letter-spacing:-.02em;
+    font-size:clamp(24px,3.6vw,34px); margin:0; }
+  .sec-sub{ color:var(--ink-soft); margin:10px 0 0; max-width:62ch; }
+
+  /* ---------- the JD match (left list / right log) ---------- */
+  .match{ display:grid; grid-template-columns:1fr 1.15fr; gap:18px; align-items:start; }
+  .reqlist{ display:flex; flex-direction:column; gap:8px; }
+  .req{
+    text-align:left; cursor:pointer; font-family:var(--font-body);
+    border:1px solid var(--line); background:var(--paper); color:var(--ink);
+    border-left:3px solid transparent; border-radius:10px; padding:13px 15px;
+    font-size:14.5px; font-weight:500; transition:.15s ease; display:flex; gap:10px; align-items:flex-start;
+  }
+  .req:hover{ background:var(--paper-2); border-left-color:var(--blue-200); }
+  .req.active{ background:var(--paper-2); border-left-color:var(--blue); box-shadow:0 1px 0 rgba(0,0,0,.02); }
+  .req .ix{ font-family:var(--font-mono); font-size:11px; color:var(--ink-soft); margin-top:2px; }
+  .req.active .ix{ color:var(--blue); }
+  .req:focus-visible{ outline:2px solid var(--blue); outline-offset:2px; }
+
+  .logcard{
+    position:sticky; top:18px; border-radius:14px; overflow:hidden;
+    border:1px solid #13314e; background:var(--code-bg); min-height:280px;
+  }
+  .logcard .bar{
+    display:flex; align-items:center; gap:9px; padding:11px 15px;
+    border-bottom:1px solid #15324c; background:#0a1626;
+    font-family:var(--font-mono); font-size:12px; color:#7d93ad;
+  }
+  .logcard .bar .live{ width:8px; height:8px; border-radius:50%; background:var(--ok); }
+  .logbody{ padding:18px 18px 22px; font-family:var(--font-mono); font-size:13px; color:var(--code-fg); }
+  .logbody .run{ color:#5d7793; }
+  .logbody .ok{ color:var(--ok); }
+  .logbody h4{
+    font-family:var(--font-body); font-weight:600; color:#eaf4ff; font-size:16px;
+    margin:10px 0 12px; line-height:1.35;
+  }
+  .logbody ul{ margin:0; padding:0; list-style:none; }
+  .logbody li{ position:relative; padding:7px 0 7px 20px; color:#bcd4ee; font-family:var(--font-body); font-size:14px; line-height:1.5; }
+  .logbody li::before{ content:"→"; position:absolute; left:0; color:var(--blue-200); }
+  .logchips{ display:flex; flex-wrap:wrap; gap:7px; margin-top:14px; }
+  .logchip{
+    font-family:var(--font-mono); font-size:11.5px; color:#0a1a2f;
+    background:var(--blue-200); border-radius:6px; padding:3px 9px; font-weight:600;
+  }
+  .pivot-tag{
+    display:inline-block; margin-top:13px; font-family:var(--font-mono); font-size:11px;
+    color:var(--blue-200); border:1px dashed #2f5d86; border-radius:6px; padding:4px 9px;
+  }
+
+  /* ---------- metrics ---------- */
+  .metrics{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+  .metric{
+    border:1px solid var(--line); border-radius:12px; padding:18px 16px; background:var(--paper);
+  }
+  .metric .n{ font-family:var(--font-display); font-weight:700; color:var(--blue); font-size:30px; letter-spacing:-.02em; }
+  .metric .l{ color:var(--ink-soft); font-size:13px; margin-top:6px; line-height:1.4; }
+
+  /* ---------- history ---------- */
+  .roles{ display:flex; flex-direction:column; gap:0; border-top:1px solid var(--line); }
+  .role{ display:grid; grid-template-columns:200px 1fr; gap:22px; padding:22px 0; border-bottom:1px solid var(--line); }
+  .role .co{ font-family:var(--font-display); font-weight:600; font-size:18px; }
+  .role .dates{ font-family:var(--font-mono); font-size:12px; color:var(--ink-soft); margin-top:5px; }
+  .role .title{ font-weight:600; font-size:15px; margin:0 0 9px; color:var(--blue-700); }
+  .role ul{ margin:0; padding-left:18px; }
+  .role li{ font-size:14.5px; color:#33465a; margin:5px 0; }
+
+  /* ---------- stack / credentials ---------- */
+  .cols{ display:grid; grid-template-columns:1fr 1fr; gap:34px; }
+  .block h3{ font-family:var(--font-display); font-size:14px; letter-spacing:.02em; margin:0 0 12px; }
+  .tags{ display:flex; flex-wrap:wrap; gap:8px; }
+  .tag{ font-size:13px; border:1px solid var(--line); border-radius:7px; padding:5px 10px; color:#33465a; background:var(--paper); }
+  .tag.hot{ border-color:var(--blue); color:var(--blue-700); background:var(--paper-3); font-weight:600; }
+  .cap{ font-family:var(--font-mono); font-size:11px; color:var(--ink-soft); margin:12px 0 0; }
+  .meta-line{ font-size:14.5px; color:#33465a; margin:4px 0; }
+  .meta-line b{ color:var(--ink); }
+
+  /* ---------- fit + deploy footer ---------- */
+  .fit{
+    border:1px solid var(--line); background:var(--paper-2); border-radius:14px;
+    padding:22px 22px; font-size:15.5px; color:#33465a;
+  }
+  .fit b{ color:var(--ink); }
+  .deploy{
+    margin-top:34px; border-radius:14px; overflow:hidden;
+    border:1px solid #13314e; background:var(--code-bg); padding:18px 18px;
+    font-family:var(--font-mono); font-size:13px; color:var(--code-fg); line-height:1.8;
+  }
+  .deploy .cmd{ color:#ffd479; } .deploy .ok{ color:var(--ok); } .deploy .dim{ color:#5d7793; }
+
+  footer{ padding:40px 0 64px; }
+  .contact{ display:flex; flex-wrap:wrap; gap:10px 22px; align-items:center; margin-top:10px; }
+  .contact a, .contact span{ font-family:var(--font-mono); font-size:13.5px; color:var(--ink); text-decoration:none; }
+  .contact a{ border-bottom:1px solid var(--blue-200); padding-bottom:1px; }
+  .contact a:hover{ color:var(--blue); }
+  .signoff{ font-family:var(--font-mono); font-size:12px; color:var(--ink-soft); margin-top:18px; display:flex; align-items:center; gap:9px; }
+  .signoff .mark{ width:16px; height:16px; color:var(--blue); }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:820px){
+    .match{ grid-template-columns:1fr; }
+    .logcard{ position:static; }
+    .metrics{ grid-template-columns:repeat(2,1fr); }
+    .cols{ grid-template-columns:1fr; gap:26px; }
+    .role{ grid-template-columns:1fr; gap:8px; }
+  }
+  @media (prefers-reduced-motion:reduce){ *{ animation:none!important; scroll-behavior:auto; } }
+</style>
+</head>
+<body>
+
+<!-- official LangChain mark, reused via <use> -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="lc-mark" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M7.531 15.976a7.534 7.534 0 000-10.651L2.206 0A7.537 7.537 0 000 5.326c0 1.996.794 3.913 2.206 5.325l5.325 5.325zM18.674 16.469a7.535 7.535 0 00-10.65 0l5.325 5.325a7.536 7.536 0 0010.651 0l-5.326-5.325zM2.218 21.782a7.536 7.536 0 005.326 2.206v-7.531H.012c0 1.996.795 3.914 2.206 5.325zM20.73 8.595a7.534 7.534 0 00-10.651.001l5.325 5.326 5.326-5.327z"/>
+  </symbol>
+</svg>
+
+<div class="wrap">
+
+  <!-- top bar -->
+  <div class="topbar">
+    <div class="brand">
+      <svg class="mark"><use href="#lc-mark"/></svg>
+      <span class="name">LangChain</span>
+      <span class="sub">· candidate brief</span>
+    </div>
+    <div class="status">
+      <span class="live"></span>
+      <span>candidate.trace()</span>
+      <span style="color:var(--line)">│</span>
+      <span>target:&nbsp;<b>langsmith</b></span>
+      <span style="color:var(--line)">│</span>
+      <span><b>ready</b></span>
+    </div>
+  </div>
+
+  <!-- hero -->
+  <header class="hero">
+    <p class="eyebrow">Product Marketing · Agent Infrastructure — Candidate</p>
+    <h1>Mercedes McAndrew</h1>
+    <p class="tagline">The infrastructure PMM function — from developer trust to platform narrative to enterprise pipeline.</p>
+    <p class="lede">
+      15+ years of B2B product marketing across <b>AI platforms, developer-adjacent SaaS, and
+      multi-product orgs</b> — owning positioning for technical buyers, running launches that moved
+      revenue, and arming sales to win enterprise deals. Every requirement in the
+      LangSmith infrastructure PMM role below maps to a real proof point. Click one to run the trace.
+    </p>
+    <div class="pills">
+      <span class="pill">Positioning &amp; messaging</span>
+      <span class="pill">Product launches</span>
+      <span class="pill">Community marketing</span>
+      <span class="pill">PLG + enterprise</span>
+      <span class="pill">Sales enablement &amp; battlecards</span>
+      <span class="pill">Competitive positioning</span>
+      <span class="pill">Customer stories</span>
+    </div>
+    <div class="jumps">
+      <a href="#match">↓ JD match</a>
+      <a href="#metrics">↓ Impact</a>
+      <a href="#history">↓ Career</a>
+    </div>
+
+    <!-- code block: the candidacy, written the way LangChain ships agents -->
+    <div class="codecard" aria-label="mercedes.py code sample">
+      <div class="bar"><i class="r"></i><i class="y"></i><i class="g"></i><span class="fn">mercedes.py</span></div>
+<pre><code><span class="c-com"># the candidacy, written the way LangChain ships agents</span>
+<span class="c-kw">from</span> langgraph.graph <span class="c-kw">import</span> StateGraph, START, END
+
+builder = <span class="c-fn">StateGraph</span>(dict)
+
+<span class="c-kw">def</span> <span class="c-fn">product_marketing</span>(state):
+    <span class="c-kw">return</span> {<span class="c-str">"output"</span>: <span class="c-str">"clear positioning · copy with taste · launches that ship"</span>}
+
+builder.<span class="c-fn">add_node</span>(<span class="c-str">"product_marketing"</span>, product_marketing)
+builder.<span class="c-fn">add_edge</span>(START, <span class="c-str">"product_marketing"</span>)
+builder.<span class="c-fn">add_edge</span>(<span class="c-str">"product_marketing"</span>, END)
+
+app = builder.<span class="c-fn">compile</span>()        <span class="c-com"># every run traced in LangSmith ↓</span>
+<span class="c-cmd"># $ langgraph dev  →  see the proof below ↓</span></code></pre>
+    </div>
+  </header>
+
+  <!-- ============ JD MATCH ============ -->
+  <section id="match">
+    <div class="sec-head">
+      <p class="sec-kicker">trace · what you'll bring → the evidence</p>
+      <h2 class="sec-title">Click any requirement. Run the proof.</h2>
+      <p class="sec-sub">Left column is pulled straight from the LangSmith job description. Click it and the
+        matching evidence from my actual work history streams into the trace on the right — real
+        deliverables and outcomes, not the JD reworded.</p>
+    </div>
+
+    <div class="match">
+      <div class="reqlist" id="reqlist" role="tablist" aria-label="Job requirements"></div>
+      <div class="logcard">
+        <div class="bar"><span class="live"></span><span>langsmith · match.log</span></div>
+        <div class="logbody" id="logbody" role="tabpanel" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ METRICS ============ -->
+  <section id="metrics">
+    <div class="sec-head">
+      <p class="sec-kicker">measured outcomes</p>
+      <h2 class="sec-title">The numbers behind the proof.</h2>
+    </div>
+    <div class="metrics" id="metrics-grid"></div>
+  </section>
+
+  <!-- ============ HISTORY ============ -->
+  <section id="history">
+    <div class="sec-head">
+      <p class="sec-kicker">work history</p>
+      <h2 class="sec-title">15+ years across AI, SaaS, and enterprise.</h2>
+    </div>
+    <div class="roles" id="roles"></div>
+  </section>
+
+  <!-- ============ STACK ============ -->
+  <section id="stack">
+    <div class="sec-head">
+      <p class="sec-kicker">stack &amp; credentials</p>
+      <h2 class="sec-title">Tools, skills, and the rest.</h2>
+    </div>
+    <div class="cols">
+      <div class="block">
+        <h3>Product marketing</h3>
+        <div class="tags">
+          <span class="tag">Positioning &amp; messaging</span>
+          <span class="tag">Go-to-market strategy</span>
+          <span class="tag">Product launches</span>
+          <span class="tag">Pricing &amp; packaging</span>
+          <span class="tag">Sales enablement</span>
+          <span class="tag">Competitive intel</span>
+          <span class="tag">Voice of customer</span>
+          <span class="tag">Analyst relations</span>
+          <span class="tag">Integrated &amp; content marketing</span>
+          <span class="tag">Brand &amp; narrative</span>
+        </div>
+        <h3 style="margin-top:24px">Tools <span style="font-weight:400;color:var(--ink-soft);font-family:var(--font-mono);font-size:11px">(highlighted = in LangChain's world)</span></h3>
+        <div class="tags">
+          <span class="tag hot">Claude</span>
+          <span class="tag hot">ChatGPT</span>
+          <span class="tag hot">Gemini</span>
+          <span class="tag hot">Perplexity</span>
+          <span class="tag hot">Gong</span>
+          <span class="tag">Klue</span>
+          <span class="tag">Salesforce</span>
+          <span class="tag">HubSpot</span>
+          <span class="tag">Asana</span>
+          <span class="tag">Adobe Creative Cloud</span>
+        </div>
+        <p class="cap">Gong is a LangSmith customer; the LLM tools above are exactly what LangSmith traces.</p>
+      </div>
+      <div class="block">
+        <h3>Education</h3>
+        <p class="meta-line"><b>B.A. English</b> — University of Virginia</p>
+        <p class="meta-line">Atlantic 10 All-Conference Champions, Women's Tennis · GWU</p>
+        <h3 style="margin-top:24px">Affiliations</h3>
+        <p class="meta-line"><b>Board Chair</b> — John E. Fogarty Foundation (IDD) · Providence, RI</p>
+        <p class="meta-line"><b>Mentor</b> — Year Up Providence</p>
+        <h3 style="margin-top:24px">Fit notes</h3>
+        <div class="fit">
+          Thrives in <b>0-to-1, high-growth, ambiguous environments</b>. Builder track record:
+          relaunched a company through a Meta divestiture, ran an independent client portfolio, and is
+          currently leading a 0-to-1 launch from scratch — now moving deliberately into <b>AI agent
+          infrastructure</b>.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- deploy footer -->
+  <div class="deploy">
+    <span class="cmd">$ langgraph deploy mercedes.py</span><br>
+    <span class="ok">✓</span> <span class="dim">tracing run ............ done</span><br>
+    <span class="ok">✓</span> <span class="dim">matching requirements .. 10 / 10</span><br>
+    <span class="ok">✓</span> deployed → mercedes-mcandrew @ langsmith · product marketing
+  </div>
+
+  <footer>
+    <div class="contact">
+      <a href="mailto:mercedes22@mac.com">mercedes22@mac.com</a>
+      <a href="tel:+19174762548">917.476.2548</a>
+      <a href="https://www.linkedin.com/in/mercedesmcandrew/" target="_blank" rel="noopener">linkedin.com/in/mercedesmcandrew</a>
+    </div>
+    <div class="signoff">
+      <svg class="mark"><use href="#lc-mark"/></svg>
+      <span>Mercedes McAndrew · PMM candidate brief for LangChain · 2026</span>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+/* =========================================================
+   CONTENT — edit text here. Three arrays drive the page:
+   MATCH (JD → proof), METRICS (numbers), ROLES (history).
+   ========================================================= */
+
+const MATCH = [
+  { req:"4–8+ years of product marketing experience",
+    proof:"15+ years owning B2B product marketing, end to end.",
+    bullets:[
+      "Salesforce, Kustomer, and AvidXchange — technical platforms, owned not assisted.",
+      "Senior PMM accountable for the narrative, with results to point to."
+    ], chips:["15+ yrs"] },
+
+  { req:"Owned positioning & messaging for a technical platform — with results",
+    proof:"The person accountable for the narrative, and the number.",
+    bullets:[
+      "Kustomer: owned positioning for an omnichannel CRM platform; launched 3 products, 2 of them AI.",
+      "Salesforce Service Cloud: owned messaging for major launches across the portfolio (11 yrs).",
+      "AvidXchange: own product marketing for the AP automation platform today."
+    ], chips:["$7M ARR influenced"] },
+
+  { req:"Marketed dev tools, cloud, DevOps, or AI/ML infrastructure",
+    proof:"Adjacent by design — a deliberate move into AI infrastructure.",
+    bullets:[
+      "Sold into security- and compliance-conscious enterprises with long technical evaluations — the infra buying motion.",
+      "AvidXchange is an AI-and-automation platform; launched AI capabilities at Kustomer.",
+      "Grew accounts from an initial land into broader platform adoption."
+    ], chips:["2 AI launches","land → platform"], pivot:true },
+
+  { req:"Comfortable with platform engineers, security architects & VP+",
+    proof:"From practitioner to executive, and back to clear copy.",
+    bullets:[
+      "Ran global Customer Advisory Boards across AMER, EMEA, and APAC with senior technical and exec stakeholders.",
+      "15 years translating complex platform capability into positioning buyers act on."
+    ], chips:["AMER · EMEA · APAC"] },
+
+  { req:"Understand the enterprise buying motion; arm the sales team",
+    proof:"Enablement that helps reps win complex deals.",
+    bullets:[
+      "Built battlecards and objection handling; ran an AI competitive-intel workflow with Klue.",
+      "Enabled 2,000 sellers across three regions; 26% YoY growth on the enablement-driven motion."
+    ], chips:["2,000 sellers","26% YoY"] },
+
+  { req:"You like to ship and iterate",
+    proof:"Strong out the door, then iterate.",
+    bullets:[
+      "3 launches at Kustomer (2 of them AI) in a fast startup environment.",
+      "Currently leading a 0-to-1 launch from scratch."
+    ], chips:["3 launches"] },
+
+  { req:"You write clearly — for the customer, not the org",
+    proof:"Customer-side writing across every surface.",
+    bullets:[
+      "Owned narrative and copy from homepage to sales deck.",
+      "This page is the writing sample — you're reading it."
+    ], chips:["homepage → deck"] },
+
+  { req:"Genuine curiosity about AI agents reshaping infrastructure",
+    proof:"Already leaning in.",
+    bullets:[
+      "This application — and this trace-style page — are part of a deliberate move into agent infrastructure.",
+      "Hands-on with AI agent workflows in daily work."
+    ], chips:[] },
+
+  { req:"Use AI tools in your own work",
+    proof:"AI is in the workflow, not just the deck.",
+    bullets:[
+      "Daily stack: Claude, ChatGPT, Gemini, Perplexity.",
+      "Built an AI competitive-intel agent with Klue; this resume built with AI in the loop."
+    ], chips:["Claude · GPT · Gemini"] },
+
+  { req:"Tell customer stories that map to business outcomes",
+    proof:"Stories that close.",
+    bullets:[
+      "Ran advocacy and voice-of-customer programs; a G2 strategy drove 16 customer reviews.",
+      "Led the Dreamforce keynote narrative to 465K+ live viewers.",
+      "Translated platform capability into outcomes a champion can sell internally."
+    ], chips:["465K live","16 G2 reviews"] }
+];
+
+const METRICS = [
+  { n:"$7M",  l:"ARR influenced — Kustomer AI relaunch" },
+  { n:"$1.5B",l:"ACV impacted in FY22 — Salesforce virtual pivot" },
+  { n:"465K+",l:"Live viewers — Dreamforce '19 keynote narrative" },
+  { n:"2,000",l:"Global sellers enabled across AMER/EMEA/APAC" },
+  { n:"+60%", l:"Share of voice in 7 months post-divestiture" },
+  { n:"$2.6M",l:"Pipeline impacted — integrated GTM campaign" },
+  { n:"16",   l:"G2 reviews driving the proof-point library" },
+  { n:"26%",  l:"YoY growth on the enablement-driven motion" }
+];
+
+/* NOTE: date ranges below are ESTIMATED from context —
+   replace with your exact dates from the Modal resume. */
+const ROLES = [
+  { co:"Intuit", dates:"Mar 2026 – Present",
+    title:"Product Marketing Contractor",
+    bullets:[
+      "Leading 0-to-1 go-to-market and launch strategy for a new small-business finance product.",
+      "Defining core positioning and value props for AI-powered features.",
+      "Building an integrated early-stage growth plan: SEO, GEO, content, referral, influencer/partner, and lifecycle.",
+      "Evaluating and defining pricing & packaging models tied to customer value and competition."
+    ] },
+  { co:"AvidXchange", dates:"2024 – 2026",
+    title:"Product Marketing — AI & Automation Platform",
+    bullets:[
+      "Own product marketing for the AP automation platform inside an AI-and-automation org.",
+      "Built competitive enablement and an AI competitive-intel workflow with Klue.",
+      "Drove a G2 strategy producing 16 customer reviews and a reusable proof-point library.",
+      "Leading a 0-to-1 launch from scratch."
+    ] },
+  { co:"Cannonball", dates:"2023 – 2024",
+    title:"Product Marketing Consultant (SME)",
+    bullets:[
+      "Ran an independent client portfolio across B2B SaaS positioning and launches."
+    ] },
+  { co:"Kustomer (independent → Meta)", dates:"2021 – 2023",
+    title:"Product Marketing Lead — Omnichannel CRM",
+    bullets:[
+      "Owned positioning for the platform; launched 3 products, including 2 AI capabilities.",
+      "Influenced $7M ARR via an AI relaunch; drove $2.6M pipeline from an integrated GTM campaign.",
+      "Relaunched the company through a Meta divestiture; +60% share of voice in 7 months."
+    ] },
+  { co:"Salesforce", dates:"2010 – 2021 · 11 yrs",
+    title:"Senior Product Marketing Manager — Service Cloud",
+    bullets:[
+      "Owned messaging and positioning for major Service Cloud launches across the portfolio.",
+      "Impacted $1.5B ACV in FY22 through the virtual-pivot narrative.",
+      "Led the Dreamforce '19 keynote narrative to 465K+ live viewers.",
+      "Scaled global Customer Advisory Boards across AMER, EMEA, APAC; enabled 2,000 sellers."
+    ] }
+];
+
+/* ---------- render: JD match ---------- */
+const reqlist = document.getElementById('reqlist');
+const logbody = document.getElementById('logbody');
+
+function renderLog(i){
+  const m = MATCH[i];
+  logbody.innerHTML = `
+    <div class="run">› match --requirement ${String(i+1).padStart(2,'0')}</div>
+    <h4>${m.proof}</h4>
+    <ul>${m.bullets.map(b=>`<li>${b}</li>`).join('')}</ul>
+    ${m.chips.length?`<div class="logchips">${m.chips.map(c=>`<span class="logchip">${c}</span>`).join('')}</div>`:''}
+    ${m.pivot?`<span class="pivot-tag">span: transferable — deliberate pivot into infra</span>`:''}
+    <div class="run" style="margin-top:14px"><span class="ok">✓</span> match resolved</div>`;
+}
+
+MATCH.forEach((m,i)=>{
+  const b=document.createElement('button');
+  b.className='req'+(i===0?' active':'');
+  b.setAttribute('role','tab');
+  b.innerHTML=`<span class="ix">${String(i+1).padStart(2,'0')}</span><span>${m.req}</span>`;
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.req').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    renderLog(i);
+  });
+  reqlist.appendChild(b);
+});
+renderLog(0);
+
+/* ---------- render: metrics ---------- */
+document.getElementById('metrics-grid').innerHTML =
+  METRICS.map(m=>`<div class="metric"><div class="n">${m.n}</div><div class="l">${m.l}</div></div>`).join('');
+
+/* ---------- render: history ---------- */
+document.getElementById('roles').innerHTML = ROLES.map(r=>`
+  <div class="role">
+    <div><div class="co">${r.co}</div><div class="dates">${r.dates}</div></div>
+    <div>
+      <p class="title">${r.title}</p>
+      <ul>${r.bullets.map(b=>`<li>${b}</li>`).join('')}</ul>
+    </div>
+  </div>`).join('');
+</script>
+</body>
+</html>

@@ -270,8 +270,8 @@
       <span class="pill">Customer stories</span>
     </div>
     <div class="jumps">
-      <a href="#match">↓ JD match</a>
       <a href="#metrics">↓ Impact</a>
+      <a href="#match">↓ JD match</a>
       <a href="#history">↓ Career</a>
     </div>
 
@@ -295,6 +295,15 @@ app = builder.<span class="c-fn">compile</span>()        <span class="c-com"># e
     </div>
   </header>
 
+  <!-- ============ METRICS ============ -->
+  <section id="metrics">
+    <div class="sec-head">
+      <p class="sec-kicker">measured outcomes</p>
+      <h2 class="sec-title">The numbers behind the proof.</h2>
+    </div>
+    <div class="metrics" id="metrics-grid"></div>
+  </section>
+
   <!-- ============ JD MATCH ============ -->
   <section id="match">
     <div class="sec-head">
@@ -312,15 +321,6 @@ app = builder.<span class="c-fn">compile</span>()        <span class="c-com"># e
         <div class="logbody" id="logbody" role="tabpanel" aria-live="polite"></div>
       </div>
     </div>
-  </section>
-
-  <!-- ============ METRICS ============ -->
-  <section id="metrics">
-    <div class="sec-head">
-      <p class="sec-kicker">measured outcomes</p>
-      <h2 class="sec-title">The numbers behind the proof.</h2>
-    </div>
-    <div class="metrics" id="metrics-grid"></div>
   </section>
 
   <!-- ============ HISTORY ============ -->
@@ -367,7 +367,6 @@ app = builder.<span class="c-fn">compile</span>()        <span class="c-com"># e
           <span class="tag">Asana</span>
           <span class="tag">Adobe Creative Cloud</span>
         </div>
-        <p class="cap">Gong is a LangSmith customer; the LLM tools above are exactly what LangSmith traces.</p>
       </div>
       <div class="block">
         <h3>Education</h3>
@@ -525,12 +524,17 @@ const ROLES = [
     bullets:[
       "Ran an independent client portfolio across B2B SaaS positioning and launches."
     ] },
-  { co:"Kustomer (independent → Meta)", dates:"2021 – 2023",
+  { co:"Meta", dates:"2022 – 2023",
+    title:"Product Marketing Lead — Kustomer",
+    bullets:[
+      "Led product marketing for Kustomer following Meta's acquisition.",
+      "Relaunched the company through the Meta divestiture; +60% share of voice in 7 months."
+    ] },
+  { co:"Kustomer", dates:"2021 – 2022",
     title:"Product Marketing Lead — Omnichannel CRM",
     bullets:[
       "Owned positioning for the platform; launched 3 products, including 2 AI capabilities.",
-      "Influenced $7M ARR via an AI relaunch; drove $2.6M pipeline from an integrated GTM campaign.",
-      "Relaunched the company through a Meta divestiture; +60% share of voice in 7 months."
+      "Influenced $7M ARR via an AI relaunch; drove $2.6M pipeline from an integrated GTM campaign."
     ] },
   { co:"Salesforce", dates:"2010 – 2021 · 11 yrs",
     title:"Senior Product Marketing Manager — Service Cloud",
